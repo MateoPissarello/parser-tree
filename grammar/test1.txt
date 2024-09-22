@@ -1,0 +1,9 @@
+S -> ASB
+A -> b
+aaA -> aaBB
+S -> d
+A -> aA
+B -> dcd
+
+
+

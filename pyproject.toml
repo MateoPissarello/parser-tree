@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "parser-tree"
+version = "0.1.0"
+description = "Generate a parser tree defining a grammar on a .txt file"
+authors = ["Mateo Pissarello"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+numpy = "^2.1.1"
+networkx = "^3.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

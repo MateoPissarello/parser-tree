@@ -4,6 +4,3 @@ aaA -> aaBB
 S -> d
 A -> aA
 B -> dcd
-
-
-

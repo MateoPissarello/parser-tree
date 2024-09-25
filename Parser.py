@@ -11,18 +11,18 @@ import matplotlib.pyplot as plt
 test_tree = {
     "S": {
         "A1": {  # Primera ocurrencia de A
-            "alias":"A",
-            "a": {"alias":"a"},
-            "A2": {"b": {"alias":"b"}, "alias":"A"},  # Segunda ocurrencia de A
+            "alias": "A",
+            "a": {"alias": "a"},
+            "A2": {"b": {"alias": "b"}, "alias": "A"},  # Segunda ocurrencia de A
         },
-        "S1": {"d": {"alias":"d"}, "alias":"S"},   # Primera ocurrencia de S
+        "S1": {"d": {"alias": "d"}, "alias": "S"},  # Primera ocurrencia de S
         "B": {
-            "alias":"B",
-            "d1": {"alias":"d"},  # Primera ocurrencia de d
-            "c": {"alias":"c"},
-            "d2": {"alias":"d"},  # Segunda ocurrencia de d
+            "alias": "B",
+            "d1": {"alias": "d"},  # Primera ocurrencia de d
+            "c": {"alias": "c"},
+            "d2": {"alias": "d"},  # Segunda ocurrencia de d
         },
-        "alias":"S"
+        "alias": "S",
     }
 }
 
@@ -69,4 +69,3 @@ class Parser:
 if __name__ == "__main__":
     parser = Parser(test_tree)
     parser.draw_tree()
-

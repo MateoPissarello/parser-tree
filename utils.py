@@ -1,40 +1,24 @@
 def parse_grammar(grammar_file):
-
     grammar_tree = {}
 
-    with open(grammar_file, 'r') as f:
-
+    with open(grammar_file, "r") as f:
         for line in f:
-
             line = line.strip()
-
             if line:
-
-                production = line.split('->')
-
+                production = line.split("->")
                 left_side = production[0].strip()
-
                 right_side = production[1].strip()
-
                 if left_side not in grammar_tree:
-
                     grammar_tree[left_side] = []
-
-                if ',' in right_side:
-
-                    right_side = right_side.split(',')
-
-                elif ' ' in right_side:
-
-                    right_side = right_side.split(' ')
-
+                if "," in right_side:
+                    right_side = right_side.split(",")
+                elif " " in right_side:
+                    right_side = right_side.split(" ")
                 else:
-
                     right_side = [right_side]
-                print
                 grammar_tree[left_side].append(right_side)
-
     return grammar_tree
+
 
 def parse_input(input_string, nodo_raiz, grammar_tree):
     def recursive_parse(remaining_input, current_rule):
@@ -70,9 +54,6 @@ def parse_input(input_string, nodo_raiz, grammar_tree):
         return False
 
     return recursive_parse(list(input_string), [nodo_raiz])  # Convertir a lista
-
-
-
 
 
 def generate_syntax_tree(input_string, nodo_raiz, grammar_tree):

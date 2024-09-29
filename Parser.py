@@ -34,6 +34,9 @@ tree = {
 }
 
 
+tree = {"S": {"a": {}}, "A": {"ε": {}}, "B": {"d": {}, "b": {}, "$": {}}}
+
+
 class Parser:
     def __init__(self, tree):
         self.tree = tree

@@ -79,6 +79,7 @@ class LL1_Parser:
         return first
 
     def generate_parse_tree(self, string):
+        # TODO: CHECK GENERATE PARSE TREE METHOD
         string = string + "$"
         parsing_tree = {}
         stack = ["$", self.grammar.start_symbol]
@@ -137,5 +138,5 @@ if __name__ == "__main__":
 
     grammar = Grammar(non_terminals, terminals, productions, "S")
     parser = LL1_Parser(grammar)
-    tree = parser.generate_parse_tree("abd")
+    tree = parser.generate_parse_tree("adb")
     print(tree)

@@ -24,6 +24,16 @@ import matplotlib.pyplot as plt
 # }
 
 
+tree = {
+    "S": {
+        "a": {},
+        "A": {"ε": {}},
+        "B": {"d": {}},
+        "b": {},
+    }
+}
+
+
 class Parser:
     def __init__(self, tree):
         self.tree = tree
@@ -58,5 +68,5 @@ class Parser:
         plt.show()
 
 
-# parser = Parser(tree)
-# parser.draw_tree()
+parser = Parser(tree)
+parser.draw_tree()

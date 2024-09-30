@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "Generate a parser tree defining a grammar on a .txt file"
 authors = ["Mateo Pissarello"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.11"

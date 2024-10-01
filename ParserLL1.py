@@ -28,7 +28,7 @@ class LL1_Parser:
         self.follow[self.grammar.start_symbol].add("$")
         for non_terminal in self.grammar.non_terminals:
             #if non_terminal != self.grammar.start_symbol:
-            self._follow_of(non_terminal)
+             self._follow_of(non_terminal)
 
     def generate_table(self):
         # self.grammar.terminals.append("$")
@@ -59,18 +59,21 @@ class LL1_Parser:
                         self._calculate_follow(non_terminal, idx, 1, rule)
 
     def _calculate_follow(self, non_terminal, idx, n, rule):
-        next_symbol = rule[idx + n]
-        if next_symbol in self.grammar.terminals:
-            self.follow[non_terminal].add(next_symbol)
-        else:
-            first = self.first[next_symbol]
-            if EPSILON in first:
-                first_copy = first.copy()
-                first_copy.remove(EPSILON)
-                self.follow[non_terminal].update(first_copy)
-                self._calculate_follow(non_terminal, idx, n + 1, rule)
+        # Asegúrate de que el índice no exceda la longitud de la regla
+        if idx + n < len(rule):
+            next_symbol = rule[idx + n]
+            
+            if next_symbol in self.grammar.terminals:
+                self.follow[non_terminal].add(next_symbol)
             else:
-                self.follow[non_terminal].update(first)
+                first = self.first[next_symbol]
+                if EPSILON in first:
+                    first_copy = first.copy()
+                    first_copy.remove(EPSILON)
+                    self.follow[non_terminal].update(first_copy)
+                    self._calculate_follow(non_terminal, idx, n + 1, rule)
+                else:
+                    self.follow[non_terminal].update(first)
 
     def _first_of(self, non_terminal):
         first = set()
@@ -167,35 +170,35 @@ class LL1_Parser:
         return root  # Retornar la raíz del árbol de análisis
 
 
-if __name__ == "__main__":
-   # Definir los terminales y no terminales
-    non_terminals = ["S", "A", "B"]
-    terminals = ["a", "b", "c", "d"]
+# if __name__ == "__main__":
+#    #Definir los terminales y no terminales
+#     non_terminals = ["S", "A", "B"]
+#     terminals = ["a", "b", "c", "d"]
 
-    # Definir las producciones usando un diccionario
-    productions = {
-        "S": [["a", "A", "B", "b"]],
-        "A": [["c"], ["ε"]],
-        "B": [["d"], ["ε"]],
-    }
+#     # Definir las producciones usando un diccionario
+#     productions = {
+#         "S": [["a", "A", "B", "b"]],
+#         "A": [["c"], ["ε"]],
+#         "B": [["d"], ["ε"]],
+#     }
 
-#    terminals = ["(", ")"]
-#    non_terminals = ["S"]
-#    productions = {
-#          "S": [["(", "S", ")"],
-#             ["ε"]],
-
+#     terminals = ["a", "b"]
+#     non_terminals = ["S", "A", "B"]
+#     productions = {
+#          "S": [["A", "a", "A", "b"], ["B", "b","B", "a"]],
+#          "A": ["ε"],
+#          "B": ["ε"]
 #      }
 
 
-grammar = Grammar(non_terminals, terminals, productions, "S")
-parser = LL1_Parser(grammar)
-pprint(parser.table)
-pprint(parser.first)
-pprint(parser.follow)
-tree = parser.generate_parse_tree("adb")
-pprint(tree)
-parser.draw_tree(tree)
+# grammar = Grammar(non_terminals, terminals, productions, "S")
+# parser = LL1_Parser(grammar)
+# pprint(parser.table)
+# pprint(parser.first)
+# pprint(parser.follow)
+# tree = parser.generate_parse_tree("adb")
+# pprint(tree)
+# parser.draw_tree(tree)
 
     # pprint(parser.table)
     # pprint(parser.first)

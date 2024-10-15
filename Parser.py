@@ -43,9 +43,12 @@ class Parser:
         self.generate_tree()
 
     def generate_tree(self):
+        self.aliases = {}
         generate_tree = nx.DiGraph()
 
         def add_edges(node, children):
+            node_alias = children.pop("alias", node)
+            self.aliases[node] = node_alias
             for child, grandchildren in children.items():
                 generate_tree.add_edge(node, child)
                 if grandchildren:
@@ -57,19 +60,23 @@ class Parser:
 
     def draw_tree(self):
         pos = nx.nx_pydot.graphviz_layout(self.tree, prog="dot")
+        labels = {node: self.aliases[node] for node in self.tree.nodes}
         # Dibujar el árbol
         nx.draw(
             self.tree,
             pos,
-            with_labels=True,
+            labels=labels,
             node_color="lightblue",
             node_size=2000,
             font_size=10,
             font_weight="bold",
+            with_labels=True,
             arrows=False,
         )
         plt.show()
 
 
-parser = Parser(tree)
-parser.draw_tree()
+if __name__ == "__main__":
+    parser = Parser(test_tree)
+    parser.draw_tree()
+

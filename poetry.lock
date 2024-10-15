@@ -574,6 +574,16 @@ release = ["zest.releaser[recommended]"]
 tests = ["chardet", "parameterized", "ruff", "tox", "unittest-parallel"]
 
 [[package]]
+name = "pygraphviz"
+version = "1.14"
+description = "Python interface to Graphviz"
+optional = false
+python-versions = ">=3.10"
+files = [
+    {file = "pygraphviz-1.14.tar.gz", hash = "sha256:c10df02377f4e39b00ae17c862f4ee7e5767317f1c6b2dfd04cea6acc7fc2bea"},
+]
+
+[[package]]
 name = "pyparsing"
 version = "3.1.4"
 description = "pyparsing module - Classes and methods to define and execute parsing grammars"
@@ -615,4 +625,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "d5104e2b4c2ce8cebda54c1996db68d3ef6433e2029f5017e488daa5c8e9117a"
+content-hash = "60aca2fac2a8de398baaeaa00bf49a8c2e9cc8e72bc65b529d400d6f9d007086"

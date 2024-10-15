@@ -1,0 +1,8 @@
+non_terminals = ["S", "A", "B"]
+terminals = ["a", "b", "c", "d"]
+productions = {
+    "S": [["a", "A", "B", "b"]],
+    "A": [["c"], ["ε"]],
+    "B": [["d"], ["ε"]],
+}
+#cadena adb

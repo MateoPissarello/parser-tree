@@ -1,0 +1,8 @@
+non_terminals = ["S", "A", "B"]
+terminals = ["x", "y", "z"]
+productions = {
+    "S": [["x", "A", "y"], ["z", "B"]],
+    "A": [["ε"], ["x", "A"]],
+    "B": [["y"], ["ε"]],
+}
+#xy

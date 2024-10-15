@@ -8,23 +8,33 @@ import matplotlib.pyplot as plt
 # nx.draw_shell(G, nlist=[range(5, 10), range(5)], with_labels=True, font_weight='bold')
 
 
-test_tree = {
+# tree = {
+#     "S": {
+#         "A1": {  # Primera ocurrencia de A
+#             "a": {},
+#             "A2": {"b": {}},  # Segunda ocurrencia de A
+#         },
+#         "S1": {"d": {}},  # Primera ocurrencia de S
+#         "B": {
+#             "d1": {},  # Primera ocurrencia de d
+#             "c": {},
+#             "d2": {},  # Segunda ocurrencia de d
+#         },
+#     }
+# }
+
+
+tree = {
     "S": {
-        "A1": {  # Primera ocurrencia de A
-            "alias":"A",
-            "a": {"alias":"a"},
-            "A2": {"b": {"alias":"b"}, "alias":"A"},  # Segunda ocurrencia de A
-        },
-        "S1": {"d": {"alias":"d"}, "alias":"S"},   # Primera ocurrencia de S
-        "B": {
-            "alias":"B",
-            "d1": {"alias":"d"},  # Primera ocurrencia de d
-            "c": {"alias":"c"},
-            "d2": {"alias":"d"},  # Segunda ocurrencia de d
-        },
-        "alias":"S"
+        "a": {},
+        "A": {"ε": {}},
+        "B": {"d": {}},
+        "b": {},
     }
 }
+
+
+# tree = {"S": {"a": {}}, "A": {"ε": {}}, "B": {"d": {}, "b": {}, "$": {}}}
 
 
 class Parser:

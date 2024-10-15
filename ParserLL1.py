@@ -1,5 +1,4 @@
 from Grammar import Grammar
-from pprint import pprint
 from Node import Node
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -27,8 +26,8 @@ class LL1_Parser:
             self.follow[non_terminal] = set()
         self.follow[self.grammar.start_symbol].add("$")
         for non_terminal in self.grammar.non_terminals:
-            #if non_terminal != self.grammar.start_symbol:
-             self._follow_of(non_terminal)
+            # if non_terminal != self.grammar.start_symbol:
+            self._follow_of(non_terminal)
 
     def generate_table(self):
         # self.grammar.terminals.append("$")
@@ -62,7 +61,7 @@ class LL1_Parser:
         # Asegúrate de que el índice no exceda la longitud de la regla
         if idx + n < len(rule):
             next_symbol = rule[idx + n]
-            
+
             if next_symbol in self.grammar.terminals:
                 self.follow[non_terminal].add(next_symbol)
             else:
@@ -110,14 +109,17 @@ class LL1_Parser:
 
     def generate_parse_tree(self, string):
         i = 0  # Apuntador en la cadena de entrada
-        root_production = self.grammar.productions[self.grammar.start_symbol][0]  # Obtener la producción inicial
+        root_production = self.grammar.productions[self.grammar.start_symbol][
+            0
+        ]  # Obtener la producción inicial
         root_production.reverse()  # Revertir la producción para insertar en el stack
 
-        stack = ["$"]+root_production  # Iniciar el stack con símbolo de fin y símbolo inicial
+        stack = [
+            "$"
+        ] + root_production  # Iniciar el stack con símbolo de fin y símbolo inicial
         root = Node(self.grammar.start_symbol)  # Nodo raíz del árbol
         current_node = root  # Apuntador al nodo actual en el árbol
         input_string = list(string) + ["$"]  # Cadena de entrada con símbolo de fin
-        
 
         while stack:
             top = stack.pop()  # Obtener el elemento superior del stack
@@ -135,19 +137,23 @@ class LL1_Parser:
             if top == "$":
                 print("Análisis completado.")
                 return root
-            if top in self.grammar.terminals :
+            if top in self.grammar.terminals:
                 if top == current_input:  # Si coinciden, avanzar en la cadena
                     i += 1
                     terminal_node = Node(top, current_node)  # Crear un nodo terminal
                     current_node.add_child(terminal_node)
-                    current_node = root # Volver al nodo padre
+                    current_node = root  # Volver al nodo padre
                 else:
-                    raise SyntaxError(f"Error de análisis: Se esperaba {top} pero se encontró {current_input}.")
+                    raise SyntaxError(
+                        f"Error de análisis: Se esperaba {top} pero se encontró {current_input}."
+                    )
 
             else:  # Si es un no terminal
                 rule = self.table[top].get(current_input)
                 if not rule:
-                    raise SyntaxError(f"Error de análisis: No hay regla para {top} con {current_input}.")
+                    raise SyntaxError(
+                        f"Error de análisis: No hay regla para {top} con {current_input}."
+                    )
 
                 # Crear un nodo para la producción
                 production_node = Node(top, current_node)
@@ -200,5 +206,5 @@ class LL1_Parser:
 # pprint(tree)
 # parser.draw_tree(tree)
 
-    # pprint(parser.table)
-    # pprint(parser.first)
+# pprint(parser.table)
+# pprint(parser.first)

@@ -3,14 +3,16 @@ import argparse
 from ParserLL1 import LL1_Parser
 from Grammar import Grammar
 
+
 def leer_reglas_archivo(archivo):
-    with open(archivo, 'r') as f:
+    with open(archivo, "r") as f:
         contenido = f.read()
     return contenido
 
+
 def main():
-    parser = argparse.ArgumentParser(description='Parser LL1')
-    parser.add_argument('-f', type=str, required=True, help='Archivo de reglas')
+    parser = argparse.ArgumentParser(description="Parser LL1")
+    parser.add_argument("-f", type=str, required=True, help="Archivo de reglas")
     args = parser.parse_args()
 
     contenido = leer_reglas_archivo(args.f)
@@ -22,9 +24,9 @@ def main():
     exec(contenido, variables)
 
     # Obtener las variables definidas en el archivo de texto
-    non_terminals = variables['non_terminals']
-    terminals = variables['terminals']
-    productions = variables['productions']
+    non_terminals = variables["non_terminals"]
+    terminals = variables["terminals"]
+    productions = variables["productions"]
 
     # Crear la gramática
     grammar = Grammar(non_terminals, terminals, productions, "S")
@@ -54,6 +56,7 @@ def main():
         parser_ll1.draw_tree(tree)
     except SyntaxError as e:
         print(f"Error de sintaxis: {e}")
+
 
 if __name__ == "__main__":
     main()

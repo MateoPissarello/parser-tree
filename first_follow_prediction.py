@@ -5,6 +5,44 @@ from Grammar import Grammar
 from ParserLL1 import LL1_Parser
 
 
+class GrammarProcessor:
+    def __init__(self, path):
+        self.path = path
+        self.non_terminals = []
+        self.terminals = []
+        self.productions = {}
+        self.process_grammar()
+
+    def process_grammar(self) -> list:
+        contenido = FileHandler.LineByLineReadStrategy().read(self.path)
+        for line in contenido:
+            line = line.replace("\n", "")
+            rule, production = line.split("->")
+            print("Rule: ", rule)
+
+            rule = list(rule.strip())[0]
+            production = production.strip().split(" ")
+
+            # Add rule to non_terminals
+            if is_non_terminal(rule) and rule not in self.non_terminals:
+                self.non_terminals.append(rule)
+            for char in production:
+                if is_terminal(char):
+                    if char not in self.terminals:
+                        self.terminals.append(char)
+                elif is_non_terminal(char):
+                    if char not in self.non_terminals:
+                        self.non_terminals.append(char)
+
+            if rule not in self.productions:
+                self.productions[rule] = []
+                self.productions[rule].append(production)
+            else:
+                self.productions[rule].append(production)
+
+        return [self.non_terminals, self.terminals, self.productions]
+
+
 def leer_reglas_archivo(archivo):
     with open(archivo, "r") as f:
         contenido = f.read()
@@ -28,37 +66,37 @@ def print_ll1_table(table):
         print(row)
 
 
-def process_grammar_v2(path) -> list:
-    contenido = FileHandler.LineByLineReadStrategy().read(path)
-    non_terminals = []
-    terminals = []
-    productions = {}
-    for line in contenido:
-        line = line.replace("\n", "")
-        rule, production = line.split("->")
-        print("Rule: ", rule)
+# def process_grammar_v2(path) -> list:
+#     contenido = FileHandler.LineByLineReadStrategy().read(path)
+#     non_terminals = []
+#     terminals = []
+#     productions = {}
+#     for line in contenido:
+#         line = line.replace("\n", "")
+#         rule, production = line.split("->")
+#         print("Rule: ", rule)
 
-        rule = list(rule.strip())[0]
-        production = production.strip().split(" ")
+#         rule = list(rule.strip())[0]
+#         production = production.strip().split(" ")
 
-        # Add rule to non_terminals
-        if is_non_terminal(rule) and rule not in non_terminals:
-            non_terminals.append(rule)
-        for char in production:
-            if is_terminal(char):
-                if char not in terminals:
-                    terminals.append(char)
-            elif is_non_terminal(char):
-                if char not in non_terminals:
-                    non_terminals.append(char)
+#         # Add rule to non_terminals
+#         if is_non_terminal(rule) and rule not in non_terminals:
+#             non_terminals.append(rule)
+#         for char in production:
+#             if is_terminal(char):
+#                 if char not in terminals:
+#                     terminals.append(char)
+#             elif is_non_terminal(char):
+#                 if char not in non_terminals:
+#                     non_terminals.append(char)
 
-        if rule not in productions:
-            productions[rule] = []
-            productions[rule].append(production)
-        else:
-            productions[rule].append(production)
+#         if rule not in productions:
+#             productions[rule] = []
+#             productions[rule].append(production)
+#         else:
+#             productions[rule].append(production)
 
-    return [non_terminals, terminals, productions]
+#     return [non_terminals, terminals, productions]
 
 
 def is_terminal(symbol):
@@ -77,7 +115,9 @@ def main():
 
     path = args.f.strip()
 
-    non_terminals, terminals, productions = process_grammar_v2(path)
+    # Grammar Processor
+    processor = GrammarProcessor(path)
+    non_terminals, terminals, productions = processor.process_grammar()
 
     print("Non-terminals: ", non_terminals)
     print("Terminals: ", terminals)

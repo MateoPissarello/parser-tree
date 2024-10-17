@@ -65,10 +65,50 @@ def delete_left_recursion(grammar: Grammar) -> Grammar:
     )
 
 
-def common_factor(grammar: Grammar) -> Grammar:
-    # TODO
+def factor_common_prefix(grammar: Grammar) -> Grammar:
+    new_productions = {}
+    for non_terminal in grammar.non_terminals:
+        productions = grammar.productions.get(non_terminal, [])
+        common_prefixes = {}
+        if not productions:
+            continue
+        # Agrupar producciones por prefijo común
+        for prod in productions:
+            prefix = prod[0]
+            if prefix not in common_prefixes:
+                common_prefixes[prefix] = []
+            common_prefixes[prefix].append(prod)
 
-new_grammar = common_factor(test_grammar)
+        # Crear nuevas reglas para manejar prefijos comunes
+        new_productions[non_terminal] = []
+        for prefix, prods in common_prefixes.items():
+            if len(prods) == 1:
+                # No hay prefijo común
+                new_productions[non_terminal].append(prods[0])
+            else:
+                # Hay prefijo común, crear un nuevo no terminal
+                new_non_terminal = non_terminal + "'"
+                while new_non_terminal in grammar.non_terminals:
+                    new_non_terminal += "'"
+
+                new_productions[non_terminal].append([prefix] + [new_non_terminal])
+                new_productions[new_non_terminal] = []
+
+                for prod in prods:
+                    if len(prod) > 1:
+                        new_productions[new_non_terminal].append(prod[1:])
+                    else:
+                        new_productions[new_non_terminal].append(["ε"])
+
+    return Grammar(
+        grammar.non_terminals + [new_non_terminal],
+        grammar.terminals,
+        new_productions,
+        grammar.start_symbol,
+    )
+
+
+new_grammar = factor_common_prefix(test_grammar)
 
 # new_grammar = delete_left_recursion(test_grammar)
 

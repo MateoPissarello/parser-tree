@@ -20,19 +20,21 @@ class GrammarProcessor:
             rule, production = line.split("->")
             # print("Rule: ", rule)
 
-            rule = list(rule.strip())[0]
+            rule = (rule.strip())
+            first_char_rule = rule[0]
             production = production.strip().split(" ")
 
             # Add rule to non_terminals
-            if is_non_terminal(rule) and rule not in self.non_terminals:
+            if is_non_terminal(first_char_rule) and first_char_rule not in self.non_terminals:
                 self.non_terminals.append(rule)
-            for char in production:
+            for word in production:
+                char = word[0]
                 if is_terminal(char):
-                    if char not in self.terminals:
-                        self.terminals.append(char)
+                    if word not in self.terminals:
+                        self.terminals.append(word)
                 elif is_non_terminal(char):
-                    if char not in self.non_terminals:
-                        self.non_terminals.append(char)
+                    if word not in self.non_terminals:
+                        self.non_terminals.append(word)
 
             if rule not in self.productions:
                 self.productions[rule] = []

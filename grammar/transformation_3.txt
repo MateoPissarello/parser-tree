@@ -1,0 +1,2 @@
+E -> E opsuma T
+E -> T

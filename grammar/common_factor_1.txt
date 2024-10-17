@@ -1,0 +1,2 @@
+Inst -> if E then Inst endif
+Inst -> if E then Inst else Inst endif

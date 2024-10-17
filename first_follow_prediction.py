@@ -18,7 +18,7 @@ class GrammarProcessor:
         for line in contenido:
             line = line.replace("\n", "")
             rule, production = line.split("->")
-            print("Rule: ", rule)
+            # print("Rule: ", rule)
 
             rule = list(rule.strip())[0]
             production = production.strip().split(" ")
